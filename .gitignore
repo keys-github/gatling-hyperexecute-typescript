@@ -1,0 +1,9 @@
+node_modules/
+dist/
+results/
+.hyperexecute/
+hyperexecute/
+hyperexecute-cli.log
+hyperexecuteupdate
+.updatedhyperexecute.yaml
+.DS_Store

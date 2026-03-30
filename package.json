@@ -1,0 +1,22 @@
+{
+  "name": "gatling-ts-hyperexecute",
+  "version": "1.0.0",
+  "description": "Gatling performance test with TypeScript on HyperExecute",
+  "scripts": {
+    "build": "tsc",
+    "start:server": "ts-node src/server/app.ts",
+    "test:gatling": "npx gatling run --simulation GreetingSimulation --sources-folder src/simulations --results-folder results --resources-folder resources"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@gatling.io/cli": "^3.15.1",
+    "@gatling.io/core": "^3.15.1",
+    "@gatling.io/http": "^3.15.1",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.2"
+  }
+}

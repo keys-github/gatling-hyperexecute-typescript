@@ -1,0 +1,40 @@
+---
+version: 0.1
+runson: linux
+
+autosplit: true
+concurrency: 1
+scenarioCommandStatusOnly: true
+
+background:
+  - npx ts-node src/server/app.ts || true
+
+runtime:
+  - language: node
+    version: "21"
+
+report: true
+partialReports:
+  - location: results
+    type: html
+    frameworkName: allure
+
+uploadArtefacts:
+  - name: GatlingReport
+    path:
+      - results/**
+
+pre:
+  - npm install
+
+testDiscovery:
+  type: raw
+  mode: static
+  command: echo "Test"
+
+testRunnerCommand: npx gatling run --simulation GreetingSimulation --sources-folder src/simulations --results-folder results --resources-folder resources
+
+retryOnFailure: true
+maxRetries: 1
+
+jobLabel: [Performance, Gatling, TypeScript]
