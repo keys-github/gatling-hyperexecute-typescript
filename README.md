@@ -1,188 +1,126 @@
-# Gatling Performance Testing on HyperExecute (TypeScript)
+# Run Gatling Performance Tests on TestMu AI (Formerly LambdaTest)
 
-This project shows how to run **Gatling load tests** written in **TypeScript** on [LambdaTest HyperExecute](https://www.lambdatest.com/hyperexecute).
+<p align="center">
+  <a href="https://www.testmuai.com/"><img src="https://img.shields.io/badge/MADE%20BY%20TestMu%20AI-000000.svg?style=for-the-badge&labelColor=000" alt="Made by TestMu AI"></a>
+  <a href="https://www.npmjs.com/package/@gatling.io/cli"><img src="https://img.shields.io/npm/v/@gatling.io/cli.svg?style=for-the-badge&labelColor=000000" alt="Gatling CLI version"></a>
+  <a href="https://community.testmuai.com/"><img src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&labelColor=000000" alt="Community"></a>
+</p>
 
-It comes with a sample Express server and a ready-to-run Gatling simulation so you can try it out right away.
+## Getting Started
 
----
+[TestMu AI](https://www.testmuai.com/) (Formerly LambdaTest) is the world's first full-stack AI Agentic Quality Engineering platform that empowers teams to test intelligently, smarter, and ship faster. Built for scale, it offers a full-stack testing cloud with 10K+ real devices and 3,000+ browsers. With AI-native test management, MCP servers, and agent-based automation, TestMu AI supports Selenium, Appium, Playwright, and all major frameworks. 
 
-## What's Inside
+With TestMu AI (Formerly LambdaTest), you can run Gatling load tests written in TypeScript on HyperExecute, taking advantage of distributed cloud infrastructure for scalable performance testing without managing your own test grid.
 
-```
-├── HYE.yaml                                  # HyperExecute config file
-├── package.json                              # Project dependencies
-├── tsconfig.json                             # TypeScript settings
-├── resources/
-│   └── gatling.conf                          # Report settings (thresholds, percentiles)
-└── src/
-    ├── server/
-    │   └── app.ts                            # Sample Express server to test against
-    └── simulations/
-        └── GreetingSimulation.gatling.ts      # The Gatling load test
-```
+- [Sign up on TestMu AI](https://www.testmuai.com/register/) (Formerly LambdaTest).
+- Follow the [TestMu AI Documentation](https://www.testmuai.com/support/docs/) for the full setup walkthrough.
 
----
+### Prerequisites
 
-## Before You Start
+- Node.js v18 or newer and npm
+- [HyperExecute CLI](https://www.testmuai.com/support/docs/hyperexecute-cli-run-tests-on-hyperexecute-grid/) binary for your OS (for cloud runs)
+- A TestMu AI (Formerly LambdaTest) account with your username and access key
 
-You need these installed on your machine:
+### Setup
 
-- [Node.js](https://nodejs.org/) **v18 or newer** — run `node -v` to check
-- [Git](https://git-scm.com/)
-
-For running on HyperExecute, you also need:
-
-- A [LambdaTest](https://www.lambdatest.com/) account
-- [HyperExecute CLI](https://www.lambdatest.com/support/docs/hyperexecute-cli-run-tests-on-hyperexecute-grid/) binary for your OS
-
----
-
-## Try It Locally
-
-### Step 1: Clone and install
+Clone and install dependencies:
 
 ```bash
-git clone https://github.com/LambdaTest/gatling-hyperexecute-typescript.git
-cd gatling-hyperexecute-typescript
+git clone https://github.com/LambdaTest/gatling-hyperexecute-typescript && cd gatling-hyperexecute-typescript
 npm install
 ```
 
-### Step 2: Start the sample server
+Set your credentials as environment variables.
 
-Open a terminal and run:
+**macOS / Linux:**
+
+```bash
+export LT_USERNAME="YOUR_USERNAME"
+export LT_ACCESS_KEY="YOUR_ACCESS_KEY"
+```
+
+**Windows:**
+
+```bash
+set LT_USERNAME="YOUR_USERNAME"
+set LT_ACCESS_KEY="YOUR_ACCESS_KEY"
+```
+
+### Run tests
+
+Start the sample server in one terminal:
 
 ```bash
 npm run start:server
 ```
 
-You should see:
-
-```
-Server running on http://localhost:8080
-```
-
-Keep this terminal open.
-
-### Step 3: Run the load test
-
-Open a **second terminal** and run:
+Run the Gatling load test in a second terminal:
 
 ```bash
 npm run test:gatling
 ```
 
-This will send requests to the server for 60 seconds. When it finishes, you'll see a summary like:
-
-```
----- Global Information --------------------------------
-> request count                         12000
-> mean response time (ms)                 744
-> response time 95th percentile (ms)     2673
-> percentage of failed requests           0.0%
-```
-
-### Step 4: View the report
-
-Open the generated HTML report in your browser:
-
-```
-results/jssimulation-<timestamp>/index.html
-```
-
-This report includes response time charts, percentile breakdowns, and pass/fail stats.
-
----
-
-## Run on HyperExecute
-
-### Step 1: Set your LambdaTest credentials
-
-```bash
-export LT_USERNAME=your_username
-export LT_ACCESS_KEY=your_access_key
-```
-
-You can find these in your [LambdaTest Profile](https://accounts.lambdatest.com/detail/profile).
-
-### Step 2: Run
+Run on HyperExecute cloud:
 
 ```bash
 ./hyperexecute --config HYE.yaml
 ```
 
-HyperExecute takes care of everything:
-- Installs dependencies
-- Starts the server in the background
-- Runs the Gatling test
-- Uploads the HTML report
+View results on your TestMu AI dashboard.
 
-### Step 3: View results
+### Local testing with TestMu AI Tunnel
 
-Go to the [HyperExecute Dashboard](https://hyperexecute.lambdatest.com/hyperexecute). Click on your job and go to the **Artifacts** tab to download the Gatling HTML report.
+To test locally hosted apps, set up the TestMu AI tunnel. OS-specific guides:
 
----
+- [Local Testing on Windows](https://www.testmuai.com/support/docs/local-testing-for-windows/)
+- [Local Testing on macOS](https://www.testmuai.com/support/docs/local-testing-for-macos/)
+- [Local Testing on Linux](https://www.testmuai.com/support/docs/local-testing-for-linux/)
 
-## How the Test Works
+Add the following to your capabilities:
 
-The sample server has two endpoints:
-
-| Endpoint | What it does |
-|----------|-------------|
-| `GET /greet/:name` | Returns `"Hello <name>"` |
-| `GET /slow` | Waits a random time (0–3s), then returns the delay |
-
-The Gatling simulation:
-
-1. Hits `/greet/<random-id>` and checks for status `200`
-2. Waits 5 seconds
-3. Hits `/slow` and checks for status `200`
-4. Repeats with **100 new users every second** for **60 seconds**
-5. Fails if more than **1% of requests** return errors
-
----
-
-## Make It Your Own
-
-**Test a different URL** — Change `baseUrl` in `src/simulations/GreetingSimulation.gatling.ts`:
-
-```typescript
-const httpProtocol = http
-  .baseUrl("https://your-api.example.com")
+```js
+tunnel: true,
 ```
 
-If you're testing an external URL, remove the `background` section from `HYE.yaml` (you won't need the local server).
+## Contributions
 
-**Change the load** — Adjust users and duration:
+Contributions are welcome. Open an issue to discuss your idea before submitting a pull request. When reporting bugs, include your Node.js version, OS, and npm version.
 
-```typescript
-// 50 users per second for 30 seconds
-constantUsersPerSec(50).during(30)
-```
+## TestMu AI (Formerly LambdaTest) Community
 
-**Change report thresholds** — Edit `resources/gatling.conf`:
+Connect with testers and developers in the [TestMu AI Community](https://community.testmuai.com/). Ask questions, share what you are building, and discuss best practices in test automation and DevOps.
+  
+## TestMu AI (Formerly LambdaTest) Certifications
 
-```
-indicators {
-  lowerBound = 500     # ms - requests below this are "fast"
-  upperBound = 1000    # ms - requests above this are "slow"
-}
-```
+Earn free [TestMu AI Certifications](https://www.testmuai.com/certifications/) for testers, developers, and QA engineers. Validate your skills in Selenium, Cypress, Playwright, Appium, Espresso and more. Industry-recognized, shareable on LinkedIn, and built by practitioners, not marketers.
 
----
+## Learning Resources by TestMu AI (Formerly LambdaTest)
 
-## Common Issues
+Learn modern testing through tutorials, guides, videos, and weekly updates:
 
-| Problem | Fix |
-|---------|-----|
-| `node -v` shows less than 18 | [Update Node.js](https://nodejs.org/) |
-| Port 8080 already in use | Stop the other process or change the port in `src/server/app.ts` |
-| Gatling can't connect to server | Make sure the server is running in a separate terminal |
-| No files in `results/` folder | The test hasn't run yet — run `npm run test:gatling` |
+* [TestMu AI Blog](https://www.testmuai.com/blog/)
+* [TestMu AI Learning Hub](https://www.testmuai.com/learning-hub/)
+* [TestMu AI on YouTube](https://www.youtube.com/@TestMuAI)
+* [TestMu AI Newsletter](https://www.testmuai.com/newsletter/)
+  
+## LambdaTest is Now TestMu AI
 
----
+On **January 12, 2026**, [LambdaTest evolved to TestMu AI](https://www.testmuai.com/lambdatest-is-now-testmuai/), the world's first fully autonomous **Agentic AI Quality Engineering Platform**.
 
-## Documentation
+Same team. Same infrastructure. Same customer accounts. All existing LambdaTest logins, scripts, capabilities, and integrations continue to work without change.
 
-- [HyperExecute Getting Started](https://www.lambdatest.com/support/docs/getting-started-with-hyperexecute/)
-- [HyperExecute YAML Configuration](https://www.lambdatest.com/support/docs/deep-dive-into-hyperexecute-yaml/)
-- [Gatling JS/TS Documentation](https://docs.gatling.io/reference/integrations/build-tools/js-cli/)
+Find the new home for [LambdaTest](https://www.testmuai.com).
+
+### How LambdaTest Evolved into TestMu AI
+
+In 2017, we launched LambdaTest with a simple mission: make testing fast, reliable, and accessible. As LambdaTest grew, we expanded into Test Intelligence, Visual Regression Testing, Accessibility Testing, API Testing, and Performance Testing, covering the full depth of the testing lifecycle.
+
+As software development entered the AI era, testing had to evolve, too. We rebuilt the architecture to be AI-native from the ground up, with autonomous agents that **plan, author, execute, analyze, and optimize tests** while keeping humans in the loop. The platform integrates with your repos, CI, IDEs, and terminals, continuously learning from every code change and development signal.
+
+That evolution earned a new name: **TestMu AI**, built for an AI-first future of quality engineering. TestMu is not a new name for us. It is the name of our annual community conference, which has brought together 100,000+ quality engineers to discuss how AI would reshape testing, long before that became an industry norm. 
+
+What started as a high-performance cloud testing platform has transformed into an AI-native, multi-agent system powering a connected, end-to-end quality layer. That evolution defined a new identity: LambdaTest evolved into TestMu AI, built for an AI-first future of quality engineering.
+
+## Support
+
+Got a question? Email [support@testmuai.com](mailto:support@testmuai.com) or chat with us 24x7 from our chat portal.
